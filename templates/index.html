@@ -1,0 +1,386 @@
+<span style="font-family: verdana, geneva, sans-serif;"><!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8"/>
+      <title>Dashboard </title>
+      <!-- <link rel="stylesheet" href="style.css"/> -->
+        <!-- Font Awesome Cdn Link -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+    
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+    
+        body {
+            background: rgb(226, 226, 226);
+        }
+    
+        nav {
+            position: sticky;
+            top: 0;
+            bottom: 0;
+            height: 100vh;
+            left: 0;
+            width: 90px;
+            /* width: 280px; */
+            background: #fff;
+            overflow: hidden;
+            transition: 1s;
+        }
+    
+        nav:hover {
+            width: 280px;
+            transition: 1s;
+        }
+    
+        .logo {
+            text-align: center;
+            display: flex;
+            margin: 10px 0 0 10px;
+            padding-bottom: 3rem;
+        }
+    
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+    
+        .logo span {
+            font-weight: bold;
+            padding-left: 15px;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+    
+        a {
+            position: relative;
+            width: 280px;
+            font-size: 14px;
+            color: rgb(85, 83, 83);
+            display: table;
+            padding: 10px;
+        }
+    
+        nav .fas {
+            position: relative;
+            width: 70px;
+            height: 40px;
+            top: 20px;
+            font-size: 20px;
+            text-align: center;
+        }
+    
+        .nav-item {
+            position: relative;
+            top: 12px;
+            margin-left: 10px;
+        }
+    
+        a:hover {
+            background: #eee;
+        }
+    
+        a:hover i {
+            color: #348aaf;
+            transition: 0.5s;
+        }
+    
+        .logout {
+            position: absolute;
+            bottom: 0;
+        }
+    
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        /* MAin Section */
+        .main {
+            position: relative;
+            padding: 20px;
+            width: 100%;
+        }
+    
+        .main-top {
+            display: flex;
+            width: 100%;
+        }
+    
+        .main-top i {
+            position: absolute;
+            right: 0;
+            margin: 10px 30px;
+            color: rgb(110, 109, 109);
+            cursor: pointer;
+        }
+    
+        .main .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+        }
+    
+        .categories .card {
+            margin: 10px;
+            background: #fff;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+        }
+    
+        .categories .card img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+    
+        .categories .card h4 {
+            text-transform: uppercase;
+        }
+    
+        .categories .card p {
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+    
+        .categories table {
+            margin: auto;
+        }
+    
+        .categories .per span {
+            padding: 5px;
+            border-radius: 10px;
+            background: rgb(223, 223, 223);
+        }
+    
+        .categories td {
+            font-size: 14px;
+            padding-right: 15px;
+        }
+    
+        .categories .card a {
+            width: 100%;
+            margin-top: 8px;
+            padding: 7px;
+            cursor: pointer;
+            border-radius: 10px;
+            background: transparent;
+            border: 1px solid #348aaf;
+        }
+    
+        .categories .card a:hover {
+            background: #348aaf;
+            color: #fff;
+            transition: 0.5s;
+        }
+    
+        /*Attendance List serction  */
+        .attendance {
+            margin-top: 20px;
+            text-transform: capitalize;
+        }
+    
+        .attendance-list {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+        }
+    
+        .table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 15px;
+            min-width: 100%;
+            overflow: hidden;
+            border-radius: 5px 5px 0 0;
+        }
+    
+        table thead tr {
+            color: #fff;
+            background: #348aaf;
+            text-align: left;
+            font-weight: bold;
+        }
+    
+        .table th,
+        .table td {
+            padding: 12px 15px;
+        }
+    
+        .table tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+    
+        .table tbody tr:nth-of-type(odd) {
+            background: #f3f3f3;
+        }
+    
+        .table tbody tr.active {
+            font-weight: bold;
+            color: #348aaf;
+        }
+    
+        .table tbody tr:last-of-type {
+            border-bottom: 2px solid #348aaf;
+        }
+    
+        .table a {
+            display: block;
+            text-align: center;
+            padding: 6px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid #348aaf;
+            width: 100px;
+        }
+    
+        .table a:hover {
+            background: #348aaf;
+            color: #fff;
+            /*transition: 0.5rem;*/
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <section class="main">
+          <div class="main-top">
+            <h1>Le Matin Scarping</h1>
+          </div>
+          <div class="categories">
+            {% for category in categories %}
+            <div class="card">
+              <img alt="" src="{{ category.icon }}">
+              <h4>{{ category.name }}</h4>
+              <a href="/categorie{{ category.url }}">Visit</a>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+        <h2 style="text-align: center;">
+          Statistics 
+          <!-- <span>
+            <i class="fa fa-anchor" aria-hidden="true"></i>
+          </span> -->
+        </h2>
+        <div style="display: flex; justify-content: space-between;padding-inline: 20px; gap: 20px;">
+            <div style="flex: 1;">
+                <canvas height="100" id="barChart"></canvas>
+            </div>
+            <div style="width: 350px;">
+                <canvas width="350" height="200" id="donate"></canvas>
+            </div>
+            <script>
+                const elt = document.getElementById('donate');
+              
+                new Chart(elt, {
+                  type: 'doughnut',
+                  data: {
+                    labels: {{doughnutChartLabels | safe}},
+                    datasets: [{
+                        label: 'nombre d\'articles',
+                        data: {{doughnutChartData}},
+                        backgroundColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
+                          'rgb(255, 205, 86)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                  },
+                  options : {
+                    cutout  : "60%",
+                    animation : {
+                      duration : 3000,
+                    },
+                    plugins : {
+                      title :    {
+                  display: true,
+                  text: 'Nb d\'article par sentiment', // Titre de votre graphique
+                  font: {
+                    size: 18 // Taille de police du titre
+                  }
+                },
+                      legend : 
+                      {
+                        // position : "right",
+                        display : false
+                      }
+                    }
+                  }
+                });
+            </script>
+            <script>
+                const ctx = document.getElementById('barChart');
+              
+                new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                    labels: {{barChartLabels | safe}},
+                    datasets: [{
+                      label: 'Nombre d\'articles',
+                      data:{{barChartData}},
+                      borderWidth: 1,
+                      barThickness : 40,
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        grid  :{
+                          display : false
+                        }
+                    },
+                    x : {
+                      grid : {
+                        display : false
+                      }
+                    }
+                  },
+                  plugins : {
+                 title :    {
+                  display: true,
+                  text: 'Les plus publies pour les 2 derniers jours', // Titre de votre graphique
+                  font: {
+                    size: 18 // Taille de police du titre
+                  }
+                },
+                    legend : 
+                    {
+                      display : false
+                    }
+                  },
+                  layout : {
+                    padding : {
+                      left : 0,
+                      right : 0,
+                      top : 0,
+                      bottom : 0
+                    }
+                  },
+                  }
+                });
+            </script>
+        </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </body>
+    </html>
+    </span>
